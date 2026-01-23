@@ -1,957 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oneiro | Decode the Night. Visualize the Soul.</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --dream-pink: #ffdae9;
-        --dream-blue: #d4eaff;
-        --dream-purple: #e9d4ff;
-        --text-main: #5c5c8a;
-        --glass-white: rgba(255, 255, 255, 0.2);
-        --accent-purple: #8a78c4;
-      }
-
-      /* --- 基础样式 --- */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-font-smoothing: antialiased;
-      }
-      body {
-        font-family: "Quicksand", sans-serif;
-        background: #fdfdfd;
-        color: var(--text-main);
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
-
-      /* --- 背景系统 --- */
-      .dream-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -2;
-        background: linear-gradient(135deg, #fffcfd 0%, #f4faff 100%);
-        overflow: hidden;
-      }
-      .aurora-blob {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(120px);
-        opacity: 0.5;
-        mix-blend-mode: multiply;
-        animation: float 25s ease-in-out infinite alternate;
-      }
-      .blob-1 {
-        top: -10%;
-        left: -10%;
-        width: 60vw;
-        height: 60vw;
-        background: var(--dream-pink);
-      }
-      .blob-2 {
-        bottom: -20%;
-        right: -5%;
-        width: 70vw;
-        height: 70vw;
-        background: var(--dream-blue);
-        animation-delay: -5s;
-      }
-      .blob-3 {
-        top: 30%;
-        left: 20%;
-        width: 50vw;
-        height: 50vw;
-        background: var(--dream-purple);
-        animation-delay: -10s;
-      }
-      @keyframes float {
-        0% {
-          transform: translate(0, 0) scale(1);
+        :root {
+            --dream-pink: #ffdae9;
+            --dream-blue: #d4eaff;
+            --dream-purple: #e9d4ff;
+            --text-main: #5c5c8a;
+            --glass-white: rgba(255, 255, 255, 0.2);
+            --accent-purple: #8a78c4;
+            --logo-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #c2e9fb 100%);
         }
-        100% {
-          transform: translate(5%, 15%) scale(1.1);
-        }
-      }
 
-      .breathing-core {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 60vw;
-        height: 60vw;
-        background: radial-gradient(
-          circle,
-          rgba(233, 212, 255, 0.3) 0%,
-          transparent 70%
-        );
-        filter: blur(100px);
-        z-index: -1;
-        animation: deep-breath 10s ease-in-out infinite;
-      }
-      @keyframes deep-breath {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(0.9);
-          opacity: 0.2;
+        /* --- 基础样式 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fdfdfd;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
-        50% {
-          transform: translate(-50%, -50%) scale(1.1);
-          opacity: 0.5;
+
+        /* --- 背景系统 --- */
+        .dream-background {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: linear-gradient(135deg, #fffcfd 0%, #f4faff 100%);
+            overflow: hidden;
         }
-      }
-
-      /* --- 导航栏 --- */
-      header {
-        padding: 1.2rem 3rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: var(--glass-white);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        z-index: 1000;
-      }
-      .logo {
-        font-family: "Playfair Display", serif;
-        font-weight: 700;
-        font-size: 1.6rem;
-        color: #7a6baa;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-      }
-      .logo-glow {
-        width: 20px;
-        height: 20px;
-        background: linear-gradient(
-          45deg,
-          var(--dream-pink),
-          var(--dream-blue)
-        );
-        border-radius: 50%;
-        filter: blur(4px);
-        animation: logo-breath 4s ease-in-out infinite;
-      }
-      @keyframes logo-breath {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 0.7;
+        .aurora-blob {
+            position: absolute; border-radius: 50%; filter: blur(120px);
+            opacity: 0.5; mix-blend-mode: multiply;
+            animation: float 25s ease-in-out infinite alternate;
         }
-        50% {
-          transform: scale(1.2);
-          opacity: 1;
+        .blob-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: var(--dream-pink); }
+        .blob-2 { bottom: -20%; right: -5%; width: 70vw; height: 70vw; background: var(--dream-blue); animation-delay: -5s; }
+        .blob-3 { top: 30%; left: 20%; width: 50vw; height: 50vw; background: var(--dream-purple); animation-delay: -10s; }
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 15%) scale(1.1); } }
+
+        .breathing-core {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(233, 212, 255, 0.3) 0%, transparent 70%);
+            filter: blur(100px); z-index: -1; animation: deep-breath 10s ease-in-out infinite;
         }
-      }
+        @keyframes deep-breath { 0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.2; } 50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; } }
 
-      nav ul {
-        display: flex;
-        list-style: none;
-        gap: 1.5rem;
-      }
-      nav ul li a {
-        text-decoration: none;
-        color: var(--text-main);
-        font-size: 0.8rem;
-        font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 20px;
-        transition: 0.4s;
-        cursor: pointer;
-      }
-      nav ul li.active a {
-        background: rgba(255, 255, 255, 0.4);
-        color: var(--accent-purple);
-        box-shadow: 0 4px 15px rgba(138, 120, 196, 0.1);
-      }
-
-      /* --- 视图管理 --- */
-      .view-section {
-        display: none;
-        flex: 1;
-        overflow: hidden;
-        position: relative;
-        animation: fadeInView 1s ease-out forwards;
-      }
-      .view-section.active {
-        display: flex;
-        flex-direction: column;
-      }
-      @keyframes fadeInView {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
+        /* --- 导航栏 --- */
+        header {
+            padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass-white); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3); z-index: 1000;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.6rem; color: #7a6baa; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-glow { width: 20px; height: 20px; background: linear-gradient(45deg, var(--dream-pink), var(--dream-blue)); border-radius: 50%; filter: blur(4px); animation: logo-breath 4s ease-in-out infinite; }
+        @keyframes logo-breath { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.2); opacity: 1; } }
+
+        nav ul { display: flex; list-style: none; gap: 1.5rem; }
+        nav ul li a { text-decoration: none; color: var(--text-main); font-size: 0.8rem; font-weight: 500; padding: 8px 16px; border-radius: 20px; transition: 0.4s; cursor: pointer; }
+        nav ul li.active a { background: rgba(255, 255, 255, 0.4); color: var(--accent-purple); box-shadow: 0 4px 15px rgba(138, 120, 196, 0.1); }
+
+        /* --- 视图管理 --- */
+        .view-section { display: none; flex: 1; overflow: hidden; position: relative; animation: fadeInView 1s ease-out forwards; }
+        .view-section.active { display: flex; flex-direction: column; }
+        @keyframes fadeInView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 01. 首页与页脚 --- */
+        #view-home { justify-content: center; align-items: center; text-align: center; }
+        #view-home h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 600; line-height: 1.2; }
+        .hero-gradient { display: block; background: linear-gradient(90deg, #8e7ed4 0%, #5c96d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 5px 15px rgba(138, 120, 196, 0.2)); }
+        
+        .home-footer { position: absolute; bottom: 3rem; display: flex; gap: 2rem; background: rgba(255,255,255,0.2); padding: 10px 30px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
+        .social-icon { width: 20px; height: 20px; color: var(--text-main); opacity: 0.5; transition: 0.3s; cursor: pointer; }
+        .social-icon:hover { opacity: 1; transform: translateY(-2px); color: var(--accent-purple); }
+
+        /* --- 02. AI Oracle (Revised: Dialog Mode) --- */
+        #view-oracle { 
+            padding: 2rem; 
+            overflow-y: auto; /* 允许滚动以防屏幕过小 */
         }
-      }
-
-      /* --- 01. 首页 (修正：分两行) --- */
-      #view-home {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      #view-home h1 {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(3rem, 8vw, 6rem);
-        font-weight: 600;
-        line-height: 1.2;
-      }
-      .hero-gradient {
-        display: block;
-        background: linear-gradient(90deg, #8e7ed4 0%, #5c96d4 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0 5px 15px rgba(138, 120, 196, 0.2));
-      }
-
-      /* --- 02. 解梦页 --- */
-      #view-interpretation {
-        justify-content: center;
-        align-items: center;
-      }
-      .ai-greeting {
-        text-align: center;
-        max-width: 700px;
-        padding: 2rem;
-      }
-      .ai-greeting h2 {
-        font-family: "Playfair Display", serif;
-        font-size: 2.8rem;
-        color: #6a5e9e;
-        margin-bottom: 1.5rem;
-      }
-      .input-wrapper {
-        position: absolute;
-        bottom: 4rem;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding: 0 2rem;
-      }
-      .input-box {
-        width: 100%;
-        max-width: 800px;
-        background: rgba(255, 255, 255, 0.4);
-        backdrop-filter: blur(20px);
-        border-radius: 30px;
-        padding: 10px 25px;
-        display: flex;
-        align-items: center;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-      }
-      .input-box textarea {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        padding: 15px 0;
-        font-family: "Quicksand", sans-serif;
-        font-size: 1.1rem;
-        color: var(--text-main);
-        resize: none;
-        max-height: 150px;
-      }
-      .send-btn {
-        background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%);
-        color: white;
-        border: none;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 15px;
-      }
-
-      /* --- 03. 视觉化页 --- */
-      #view-visualization {
-        padding: 2rem 5rem;
-        flex-direction: row !important;
-        align-items: center;
-        gap: 4rem;
-      }
-      .studio-left {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        max-width: 450px;
-      }
-      .studio-left h2 {
-        font-family: "Playfair Display", serif;
-        font-size: 2.5rem;
-        color: #6a5e9e;
-      }
-      .studio-left p {
-        font-size: 1rem;
-        color: #8e8eb2;
-        font-style: italic;
-      }
-      .dream-textarea {
-        width: 100%;
-        min-height: 180px;
-        background: rgba(255, 255, 255, 0.35);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 24px;
-        padding: 1.5rem;
-        font-family: "Quicksand", sans-serif;
-        font-size: 1.05rem;
-        color: var(--text-main);
-        outline: none;
-        resize: none;
-      }
-      .entrust-btn {
-        align-self: flex-start;
-        background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%);
-        color: white;
-        border: none;
-        padding: 14px 45px;
-        border-radius: 30px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        cursor: pointer;
-        transition: 0.5s;
-        text-transform: uppercase;
-      }
-      .entrust-btn:hover {
-        letter-spacing: 6px;
-        transform: translateY(-3px);
-      }
-      .canvas-area {
-        flex: 1.2;
-        display: flex;
-        justify-content: center;
-      }
-      .dream-frame {
-        width: 100%;
-        max-width: 400px;
-        aspect-ratio: 3/4;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 30px;
-        backdrop-filter: blur(15px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 40px 80px rgba(122, 107, 170, 0.1);
-      }
-      .frame-glow {
-        position: absolute;
-        width: 150%;
-        height: 150%;
-        background: conic-gradient(
-          from 180deg at 50% 50%,
-          var(--dream-blue),
-          var(--dream-pink),
-          var(--dream-purple),
-          var(--dream-blue)
-        );
-        animation: spin 12s linear infinite;
-        opacity: 0.15;
-      }
-      @keyframes spin {
-        100% {
-          transform: rotate(360deg);
+        .chat-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-bottom: 50px;
         }
-      }
 
-      /* --- 04. 运势页 (修正：加入按钮) --- */
-      #view-fortune {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-      .energy-sphere {
-        width: 250px;
-        height: 250px;
-        background: radial-gradient(
-          circle at 30% 30%,
-          #fff,
-          var(--dream-blue) 40%,
-          var(--dream-purple) 70%,
-          var(--dream-pink) 100%
-        );
-        border-radius: 50%;
-        box-shadow: 0 0 80px rgba(138, 120, 196, 0.3);
-        animation: sphere-breath 6s ease-in-out infinite;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 3rem;
-      }
-      @keyframes sphere-breath {
-        0%,
-        100% {
-          transform: scale(1);
+        /* 聊天气泡样式 */
+        .chat-row {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
         }
-        50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 120px rgba(138, 120, 196, 0.5);
+        .oracle-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(138, 120, 196, 0.3);
+            border: 2px solid white;
         }
-      }
-      .stats-grid {
-        display: flex;
-        gap: 2rem;
-        margin-bottom: 2rem;
-      }
-      .stat-card {
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        padding: 1.5rem 2rem;
-        border-radius: 24px;
-        width: 160px;
-      }
-      .daily-mantra {
-        max-width: 600px;
-        font-family: "Playfair Display", serif;
-        font-size: 1.3rem;
-        font-style: italic;
-        color: #6a5e9e;
-        margin-bottom: 2.5rem;
-      }
-      .action-btn {
-        padding: 12px 40px;
-        background: #7a6baa;
-        color: white;
-        border: none;
-        border-radius: 30px;
-        font-weight: 600;
-        letter-spacing: 2px;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 10px 25px rgba(122, 107, 170, 0.2);
-      }
-      .action-btn:hover {
-        transform: scale(1.05);
-        background: #6a5e9e;
-      }
-
-      /* --- 05. 日历页 --- */
-      #view-calendar {
-        padding: 3rem;
-        overflow-y: auto;
-      }
-      .months-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-      .month-card {
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 20px;
-        padding: 1.5rem;
-        transition: 0.3s;
-      }
-      .month-card:hover {
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.4);
-      }
-      .month-name {
-        font-family: "Playfair Display", serif;
-        font-size: 1.2rem;
-        color: #7a6baa;
-        margin-bottom: 1rem;
-      }
-      .days-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-        text-align: center;
-      }
-      .day {
-        aspect-ratio: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-      .day.has-dream {
-        background: linear-gradient(
-          135deg,
-          var(--dream-purple),
-          var(--dream-pink)
-        );
-        color: #fff;
-        box-shadow: 0 0 10px rgba(138, 120, 196, 0.4);
-        animation: star-breath 3s infinite;
-      }
-      @keyframes star-breath {
-        0%,
-        100% {
-          transform: scale(1);
+        .oracle-avatar svg { width: 30px; height: 30px; color: white; }
+        
+        .chat-bubble {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 1.5rem;
+            border-radius: 0 20px 20px 20px;
+            box-shadow: 0 5px 20px rgba(122, 107, 170, 0.05);
+            max-width: 80%;
+            position: relative;
         }
-        50% {
-          transform: scale(1.1);
+        .chat-bubble h3 {
+            font-family: 'Playfair Display', serif;
+            color: #6a5e9e;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
-      }
+        .chat-bubble p {
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+        .chat-bubble p:last-child { margin-bottom: 0; }
+        
+        /* 用户操作区样式 */
+        .user-interaction-area {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeInView 1.5s ease-out forwards;
+        }
+        .user-label {
+            font-size: 0.85rem;
+            color: #8e8eb2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-left: 5px;
+        }
 
-      /* --- 06. 广场页 (修正：加入输入窗口) --- */
-      #view-plaza {
-        align-items: center;
-        padding: 2rem;
-      }
-      .plaza-scroll {
-        flex: 1;
-        width: 100%;
-        max-width: 800px;
-        overflow-y: auto;
-        padding-bottom: 100px;
-        mask-image: linear-gradient(
-          to bottom,
-          transparent,
-          black 10%,
-          black 85%,
-          transparent
-        );
-        -webkit-mask-image: linear-gradient(
-          to bottom,
-          transparent,
-          black 10%,
-          black 85%,
-          transparent
-        );
-      }
-      .dream-post {
-        background: rgba(255, 255, 255, 0.35);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 24px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        transition: 0.3s;
-      }
-      .dream-post:hover {
-        transform: scale(1.01);
-        background: rgba(255, 255, 255, 0.5);
-      }
-      .user-id {
-        font-weight: 700;
-        color: #7a6baa;
-        font-size: 0.8rem;
-        background: rgba(255, 255, 255, 0.4);
-        padding: 2px 10px;
-        border-radius: 10px;
-      }
+        .oracle-input {
+            width: 100%;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 15px;
+            padding: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            color: var(--text-main);
+            outline: none;
+            resize: none;
+            min-height: 60px;
+        }
 
-      .plaza-input-wrapper {
-        position: absolute;
-        bottom: 3rem;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding: 0 2rem;
-        z-index: 100;
-      }
-      .plaza-input-box {
-        width: 100%;
-        max-width: 800px;
-        background: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(25px);
-        border-radius: 30px;
-        padding: 10px 20px;
-        display: flex;
-        align-items: center;
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 15px 40px rgba(122, 107, 170, 0.1);
-      }
-      .plaza-input-box input {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        font-family: "Quicksand", sans-serif;
-        font-size: 1rem;
-        color: var(--text-main);
-        padding: 10px;
-      }
-      .share-btn {
-        background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%);
-        color: white;
-        border: none;
-        padding: 10px 25px;
-        border-radius: 20px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.3s;
-      }
+        .number-grid { 
+            display: grid; 
+            grid-template-columns: repeat(20, 1fr); /* 更紧凑的网格 */
+            gap: 4px; 
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 15px; 
+        }
+        @media (max-width: 768px) {
+            .number-grid { grid-template-columns: repeat(10, 1fr); }
+        }
 
-      ::-webkit-scrollbar {
-        width: 0;
-      }
+        .num-node { 
+            aspect-ratio: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.7rem; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            transition: 0.2s; 
+            background: rgba(255,255,255,0.3);
+        }
+        .num-node:hover { background: white; transform: scale(1.2); z-index: 2; }
+        .num-node.selected { 
+            background: var(--logo-gradient); 
+            color: white; 
+            border: none; 
+            box-shadow: 0 0 10px rgba(166, 193, 238, 0.6); 
+            transform: scale(1.1); 
+        }
+        
+        .oracle-btn { 
+            padding: 14px 40px; 
+            background: var(--logo-gradient); 
+            color: white; 
+            border: none; 
+            border-radius: 35px; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            cursor: pointer; 
+            align-self: flex-end; 
+            transition: 0.4s; 
+            opacity: 0.5; 
+            pointer-events: none; 
+            box-shadow: 0 5px 15px rgba(138, 120, 196, 0.1);
+        }
+        .oracle-btn.active { 
+            opacity: 1; 
+            pointer-events: auto; 
+            box-shadow: 0 8px 25px rgba(138, 120, 196, 0.3); 
+            transform: translateY(-2px);
+        }
+
+        /* --- 其他页面保持不变 --- */
+        #view-interpretation { justify-content: center; align-items: center; }
+        .ai-greeting { text-align: center; max-width: 700px; padding: 2rem; }
+        .ai-greeting h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #6a5e9e; margin-bottom: 1.5rem; }
+        .input-wrapper { position: absolute; bottom: 4rem; width: 100%; display: flex; justify-content: center; padding: 0 2rem; }
+        .input-box { width: 100%; max-width: 800px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); border-radius: 30px; padding: 10px 25px; display: flex; align-items: center; border: 1px solid rgba(255, 255, 255, 0.5); }
+        .input-box textarea { flex: 1; background: transparent; border: none; outline: none; padding: 15px 0; font-family: 'Quicksand', sans-serif; font-size: 1.1rem; color: var(--text-main); resize: none; max-height: 150px; }
+        .send-btn { background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%); color: white; border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; margin-left: 15px; }
+
+        #view-visualization { padding: 2rem 5rem; flex-direction: row !important; align-items: center; gap: 4rem; }
+        .studio-left { flex: 1; display: flex; flex-direction: column; gap: 2rem; max-width: 450px; }
+        .studio-left h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #6a5e9e; }
+        .dream-textarea { width: 100%; min-height: 180px; background: rgba(255, 255, 255, 0.35); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 24px; padding: 1.5rem; font-family: 'Quicksand', sans-serif; font-size: 1.05rem; color: var(--text-main); outline: none; resize: none; }
+        .entrust-btn { align-self: flex-start; background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%); color: white; border: none; padding: 14px 45px; border-radius: 30px; font-weight: 700; letter-spacing: 3px; cursor: pointer; transition: 0.5s; text-transform: uppercase; }
+        .canvas-area { flex: 1.2; display: flex; justify-content: center; }
+        .dream-frame { width: 100%; max-width: 400px; aspect-ratio: 3/4; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); border-radius: 30px; backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+        .frame-glow { position: absolute; width: 150%; height: 150%; background: conic-gradient(from 180deg at 50% 50%, var(--dream-blue), var(--dream-pink), var(--dream-purple), var(--dream-blue)); animation: spin 12s linear infinite; opacity: 0.15; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        #view-calendar { padding: 3rem; overflow-y: auto; }
+        .months-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; width: 100%; max-width: 1400px; margin: 0 auto; }
+        .month-card { background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 1.5rem; }
+        .month-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #7a6baa; margin-bottom: 1rem; }
+        .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .day.has-dream { background: linear-gradient(135deg, var(--dream-purple), var(--dream-pink)); color: #fff; animation: star-breath 3s infinite; }
+        @keyframes star-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        /* --- 06. 广场页 (3条帖子) --- */
+        #view-plaza { align-items: center; padding: 2rem; }
+        .plaza-scroll { flex: 1; width: 100%; max-width: 800px; overflow-y: auto; padding-bottom: 120px; }
+        .dream-post { background: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.5); border-radius: 24px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(122, 107, 170, 0.03); }
+        .user-id { font-weight: 700; color: #7a6baa; font-size: 0.8rem; background: rgba(255,255,255,0.4); padding: 2px 10px; border-radius: 10px; }
+        .plaza-input-wrapper { position: absolute; bottom: 3rem; width: 100%; display: flex; justify-content: center; padding: 0 2rem; z-index: 100; }
+        .plaza-input-box { width: 100%; max-width: 800px; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(25px); border-radius: 30px; padding: 10px 20px; display: flex; align-items: center; border: 1px solid rgba(255, 255, 255, 0.6); }
+        .plaza-input-box input { flex: 1; background: transparent; border: none; outline: none; font-family: 'Quicksand', sans-serif; font-size: 1rem; color: var(--text-main); padding: 10px; }
+        .share-btn { background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%); color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: 600; cursor: pointer; }
+
+        ::-webkit-scrollbar { width: 0; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <div class="dream-background">
-      <div class="aurora-blob blob-1"></div>
-      <div class="aurora-blob blob-2"></div>
-      <div class="aurora-blob blob-3"></div>
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
     </div>
 
     <header>
-      <div class="logo" onclick="switchView('home')">
-        <div class="logo-glow"></div>
-        Oneiro
-      </div>
-      <nav>
-        <ul id="main-nav">
-          <li class="nav-item" data-view="interpretation">
-            <a onclick="switchView('interpretation')">AI Interpretation</a>
-          </li>
-          <li class="nav-item" data-view="visualization">
-            <a onclick="switchView('visualization')">AI Visualization</a>
-          </li>
-          <li class="nav-item" data-view="fortune">
-            <a onclick="switchView('fortune')">Daily Fortune</a>
-          </li>
-          <li class="nav-item" data-view="calendar">
-            <a onclick="switchView('calendar')">Dream Calendar</a>
-          </li>
-          <li class="nav-item" data-view="plaza">
-            <a onclick="switchView('plaza')">Dream Plaza</a>
-          </li>
-        </ul>
-      </nav>
+        <div class="logo" onclick="switchView('home')">
+            <div class="logo-glow"></div>
+            Oneiro
+        </div>
+        <nav>
+            <ul id="main-nav">
+                <li class="nav-item" data-view="interpretation"><a onclick="switchView('interpretation')">AI Interpretation</a></li>
+                <li class="nav-item" data-view="visualization"><a onclick="switchView('visualization')">AI Visualization</a></li>
+                <li class="nav-item" data-view="oracle"><a onclick="switchView('oracle')">AI Oracle</a></li>
+                <li class="nav-item" data-view="calendar"><a onclick="switchView('calendar')">Dream Calendar</a></li>
+                <li class="nav-item" data-view="plaza"><a onclick="switchView('plaza')">Dream Plaza</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="breathing-core"></div>
 
     <main id="view-home" class="view-section active">
-      <h1>
-        <span class="hero-gradient">Decode the Night.</span>
-        <span class="hero-gradient">Visualize the Soul.</span>
-      </h1>
+        <h1>
+            <span class="hero-gradient">Decode the Night.</span>
+            <span class="hero-gradient">Visualize the Soul.</span>
+        </h1>
+        
+        <div class="home-footer">
+            <a class="social-icon" title="Facebook">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a class="social-icon" title="X (Twitter)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path></svg>
+            </a>
+        </div>
+    </main>
+
+    <main id="view-oracle" class="view-section">
+        <div class="chat-container">
+            <div class="chat-row">
+                <div class="oracle-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="chat-bubble">
+                    <h3>AI Oracle</h3>
+                    <p>What do you wish to know? The Oracle will tell you.</p>
+                    <p style="color:#8a78c4; font-weight:500;">Enter your question and 6 numbers (between 0-100).</p>
+                </div>
+            </div>
+
+            <div class="user-interaction-area">
+                <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                    <div class="user-label">Your Question</div>
+                    <textarea id="oracle-question" class="oracle-input" placeholder="Type your question here..."></textarea>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                    <div class="user-label">Select 6 Numbers</div>
+                    <div id="oracle-grid" class="number-grid"></div>
+                </div>
+
+                <button id="oracle-submit" class="oracle-btn">Reveal Prophecy</button>
+            </div>
+        </div>
     </main>
 
     <main id="view-interpretation" class="view-section">
-      <div class="ai-greeting">
-        <h2>I hope you rested well.</h2>
-        <p>Tell me, what fragments of the night linger in your mind?</p>
-      </div>
-      <div class="input-wrapper">
-        <div class="input-box">
-          <textarea
-            placeholder="Tell me about your dream..."
-            rows="1"
-          ></textarea>
-          <button class="send-btn">
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-          </button>
+        <div class="ai-greeting">
+            <h2>I hope you rested well.</h2>
+            <p>Tell me, what fragments of the night linger in your mind?</p>
         </div>
-      </div>
+        <div class="input-wrapper">
+            <div class="input-box">
+                <textarea placeholder="Tell me about your dream..." rows="1"></textarea>
+                <button class="send-btn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
     </main>
 
     <main id="view-visualization" class="view-section">
-      <div class="studio-left">
-        <div class="studio-header">
-          <h2>Share your thoughts with Oneiro.</h2>
-          <p>
-            Entrust your visions to me, and I shall illuminate the path that
-            lies ahead.
-          </p>
+        <div class="studio-left">
+            <h2>Share your thoughts with Oneiro.</h2>
+            <textarea class="dream-textarea" placeholder="Describe the vivid fragments, the light, and the essence of your dream..."></textarea>
+            <button class="entrust-btn">ENTRUST</button>
         </div>
-        <textarea
-          class="dream-textarea"
-          placeholder="Describe the vivid fragments, the light, and the essence of your dream..."
-        ></textarea>
-        <button class="entrust-btn">ENTRUST</button>
-      </div>
-      <div class="canvas-area">
-        <div class="dream-frame">
-          <div class="frame-glow"></div>
-          <div
-            style="
-              z-index: 1;
-              font-family: 'Playfair Display';
-              color: rgba(122, 107, 170, 0.3);
-              font-size: 0.8rem;
-              letter-spacing: 3px;
-            "
-          >
-            AWAITING YOUR VISION
-          </div>
+        <div class="canvas-area">
+            <div class="dream-frame">
+                <div class="frame-glow"></div>
+                <div style="z-index:1; font-family:'Playfair Display'; color:rgba(122,107,170,0.3); font-size:0.8rem; letter-spacing:3px;">AWAITING YOUR VISION</div>
+            </div>
         </div>
-      </div>
-    </main>
-
-    <main id="view-fortune" class="view-section">
-      <div class="energy-sphere">
-        <div
-          style="
-            font-family: 'Playfair Display';
-            font-size: 4rem;
-            font-weight: 700;
-            color: #7a6baa;
-          "
-        >
-          88
-        </div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div
-            style="
-              font-size: 0.7rem;
-              letter-spacing: 2px;
-              color: #9b9bb9;
-              margin-bottom: 0.5rem;
-            "
-          >
-            INTUITION
-          </div>
-          <div
-            style="
-              font-family: 'Playfair Display';
-              font-size: 1.8rem;
-              font-weight: 700;
-              color: #7a6baa;
-            "
-          >
-            High
-          </div>
-        </div>
-        <div class="stat-card">
-          <div
-            style="
-              font-size: 0.7rem;
-              letter-spacing: 2px;
-              color: #9b9bb9;
-              margin-bottom: 0.5rem;
-            "
-          >
-            CLARITY
-          </div>
-          <div
-            style="
-              font-family: 'Playfair Display';
-              font-size: 1.8rem;
-              font-weight: 700;
-              color: #7a6baa;
-            "
-          >
-            Deep
-          </div>
-        </div>
-        <div class="stat-card">
-          <div
-            style="
-              font-size: 0.7rem;
-              letter-spacing: 2px;
-              color: #9b9bb9;
-              margin-bottom: 0.5rem;
-            "
-          >
-            CREATIVITY
-          </div>
-          <div
-            style="
-              font-family: 'Playfair Display';
-              font-size: 1.8rem;
-              font-weight: 700;
-              color: #7a6baa;
-            "
-          >
-            Flow
-          </div>
-        </div>
-      </div>
-      <div class="daily-mantra">
-        "Your night vision is clear today. Trust the shadows; they hold the
-        answers you've been seeking since dawn."
-      </div>
-      <button class="action-btn">ALIGN ENERGY</button>
     </main>
 
     <main id="view-calendar" class="view-section">
-      <div style="text-align: center; margin-bottom: 3rem">
-        <h1
-          style="
-            font-family: 'Playfair Display';
-            font-size: 2.5rem;
-            color: #6a5e9e;
-          "
-        >
-          2026 Memory Map
-        </h1>
-      </div>
-      <div class="months-grid" id="calendar-container"></div>
+        <div style="text-align:center; margin-bottom:3rem;"><h1 style="font-family:'Playfair Display'; font-size:2.5rem; color:#6a5e9e;">2026 Memory Map</h1></div>
+        <div class="months-grid" id="calendar-container"></div>
     </main>
 
     <main id="view-plaza" class="view-section">
-      <div style="text-align: center; margin-bottom: 2rem">
-        <h1
-          style="
-            font-family: 'Playfair Display';
-            font-size: 2.2rem;
-            color: #6a5e9e;
-          "
-        >
-          Dream Plaza
-        </h1>
-      </div>
-      <div class="plaza-scroll">
-        <div class="dream-post">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 1rem;
-              font-size: 0.75rem;
-              color: #8e8eb2;
-            "
-          >
-            <span class="user-id">0x7a...E92b</span><span>2 minutes ago</span>
-          </div>
-          <p style="line-height: 1.6">
-            "I was flying over a city made of liquid violet. Every breath I took
-            turned into a small, glowing butterfly."
-          </p>
-          <div style="margin-top: 1rem; font-size: 0.8rem; color: #9b9bb9">
-            ✨ 12 Glow · 💬 4 Whispers
-          </div>
+        <div style="text-align:center; margin-bottom:2rem;"><h1 style="font-family:'Playfair Display'; font-size:2.2rem; color:#6a5e9e;">Dream Plaza</h1></div>
+        <div class="plaza-scroll">
+            <div class="dream-post"><div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.75rem; color:#8e8eb2;"><span class="user-id">0x7a...E92b</span><span>2 minutes ago</span></div><p style="line-height:1.6;">"I was flying over a city made of liquid violet. Every breath I took turned into a small, glowing butterfly."</p></div>
+            <div class="dream-post"><div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.75rem; color:#8e8eb2;"><span class="user-id">Dreamer_Luna</span><span>1 hour ago</span></div><p style="line-height:1.6;">"Found a library where books were made of sand. As I read, the words flowed through my fingers like time itself."</p></div>
+            <div class="dream-post"><div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.75rem; color:#8e8eb2;"><span class="user-id">Cyber_Zen</span><span>3 hours ago</span></div><p style="line-height:1.6;">"A giant neon whale was singing in a binary ocean. Its song felt like an encryption code for my future."</p></div>
         </div>
-        <div class="dream-post">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 1rem;
-              font-size: 0.75rem;
-              color: #8e8eb2;
-            "
-          >
-            <span class="user-id">Dreamer_Luna</span><span>15 minutes ago</span>
-          </div>
-          <p style="line-height: 1.6">
-            "I found an old library where the books were made of sand. When I
-            read them, the stories flowed through my fingers like time."
-          </p>
-          <div style="margin-top: 1rem; font-size: 0.8rem; color: #9b9bb9">
-            ✨ 28 Glow · 💬 7 Whispers
-          </div>
-        </div>
-      </div>
-      <div class="plaza-input-wrapper">
-        <div class="plaza-input-box">
-          <input type="text" placeholder="Share a fragment of your night..." />
-          <button class="share-btn">Share</button>
-        </div>
-      </div>
+        <div class="plaza-input-wrapper"><div class="plaza-input-box"><input type="text" placeholder="Share a fragment of your night..."><button class="share-btn">Share</button></div></div>
     </main>
 
     <script>
-      //
-      function switchView(viewId) {
-        document.querySelectorAll(".view-section").forEach((section) => {
-          section.classList.remove("active");
-        });
-        const activeView = document.getElementById("view-" + viewId);
-        if (activeView) activeView.classList.add("active");
-
-        document.querySelectorAll(".nav-item").forEach((item) => {
-          item.classList.remove("active");
-          if (item.getAttribute("data-view") === viewId)
-            item.classList.add("active");
-        });
-      }
-
-      const textarea = document.querySelector("#view-interpretation textarea");
-      textarea.addEventListener("input", function () {
-        this.style.height = "auto";
-        this.style.height = this.scrollHeight + "px";
-      });
-
-      const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      const container = document.getElementById("calendar-container");
-      const dreamDays = [
-        "January-5",
-        "February-14",
-        "March-20",
-        "August-15",
-        "December-25",
-      ];
-
-      months.forEach((month, index) => {
-        const card = document.createElement("div");
-        card.className = "month-card";
-        card.innerHTML = `<div class="month-name">${month}</div>`;
-        const grid = document.createElement("div");
-        grid.className = "days-grid";
-
-        const firstDay = new Date(2026, index, 1).getDay();
-        const totalDays = new Date(2026, index + 1, 0).getDate();
-
-        for (let i = 0; i < firstDay; i++)
-          grid.innerHTML += `<div class="day" style="cursor:default"></div>`;
-        for (let i = 1; i <= totalDays; i++) {
-          const hasDream = dreamDays.includes(`${month}-${i}`)
-            ? "has-dream"
-            : "";
-          grid.innerHTML += `<div class="day ${hasDream}">${i}</div>`;
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
+            const activeView = document.getElementById('view-' + viewId);
+            if(activeView) activeView.classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if(item.getAttribute('data-view') === viewId) item.classList.add('active');
+            });
         }
-        card.appendChild(grid);
-        container.appendChild(card);
-      });
+
+        // AI Oracle Logic (Updated for English & Dialog Mode)
+        const oracleGrid = document.getElementById('oracle-grid');
+        const oracleSubmit = document.getElementById('oracle-submit');
+        const oracleQuestion = document.getElementById('oracle-question');
+        let oracleSelected = [];
+
+        for (let i = 0; i < 100; i++) { // 0-99
+            const node = document.createElement('div');
+            node.className = 'num-node';
+            node.innerText = i;
+            node.onclick = () => {
+                if (oracleSelected.includes(i)) {
+                    oracleSelected = oracleSelected.filter(n => n !== i);
+                    node.classList.remove('selected');
+                } else if (oracleSelected.length < 6) {
+                    oracleSelected.push(i);
+                    node.classList.add('selected');
+                }
+                updateOracleState();
+            };
+            oracleGrid.appendChild(node);
+        }
+
+        oracleQuestion.oninput = updateOracleState;
+
+        function updateOracleState() {
+            if (oracleSelected.length === 6 && oracleQuestion.value.trim() !== "") {
+                oracleSubmit.classList.add('active');
+                oracleSubmit.innerText = "Reveal Prophecy";
+            } else {
+                oracleSubmit.classList.remove('active');
+                if (oracleSelected.length < 6) {
+                    const remaining = 6 - oracleSelected.length;
+                    oracleSubmit.innerText = `Select ${remaining} more numbers`;
+                } else {
+                    oracleSubmit.innerText = "Please enter a question";
+                }
+            }
+        }
+
+        // Calendar Logic (Unchanged)
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const container = document.getElementById('calendar-container');
+        const dreamDays = ["January-5", "February-14", "March-20", "August-15", "December-25"];
+
+        months.forEach((month, index) => {
+            const card = document.createElement('div'); card.className = 'month-card';
+            card.innerHTML = `<div class="month-name">${month}</div>`;
+            const grid = document.createElement('div'); grid.className = 'days-grid';
+            const firstDay = new Date(2026, index, 1).getDay();
+            const totalDays = new Date(2026, index + 1, 0).getDate();
+            for (let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="day" style="cursor:default"></div>`;
+            for (let i = 1; i <= totalDays; i++) {
+                const hasDream = dreamDays.includes(`${month}-${i}`) ? 'has-dream' : '';
+                grid.innerHTML += `<div class="day ${hasDream}">${i}</div>`;
+            }
+            card.appendChild(grid); container.appendChild(card);
+        });
     </script>
-  </body>
+</body>
 </html>
