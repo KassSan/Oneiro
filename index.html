@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oneiro | Decode the Night. Visualize the Soul.</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/KassSan/Oneiro/main/Oneiro.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -242,7 +243,7 @@
         .studio-left h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #6a5e9e; }
         .dream-textarea { width: 100%; min-height: 180px; background: rgba(255, 255, 255, 0.35); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 24px; padding: 1.5rem; font-family: 'Quicksand', sans-serif; font-size: 1.05rem; color: var(--text-main); outline: none; resize: none; }
         .entrust-btn { align-self: flex-start; background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%); color: white; border: none; padding: 14px 45px; border-radius: 30px; font-weight: 700; letter-spacing: 3px; cursor: pointer; transition: 0.5s; text-transform: uppercase; }
-        .canvas-area { flex: 1.2; display: flex; justify-content: center; }
+        .canvas-area { flex: 1.2; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
         .dream-frame { width: 100%; max-width: 400px; aspect-ratio: 3/4; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); border-radius: 30px; backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
         .frame-glow { position: absolute; width: 150%; height: 150%; background: conic-gradient(from 180deg at 50% 50%, var(--dream-blue), var(--dream-pink), var(--dream-purple), var(--dream-blue)); animation: spin 12s linear infinite; opacity: 0.15; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -266,6 +267,262 @@
         .plaza-input-box input { flex: 1; background: transparent; border: none; outline: none; font-family: 'Quicksand', sans-serif; font-size: 1rem; color: var(--text-main); padding: 10px; }
         .share-btn { background: linear-gradient(135deg, #a797e8 0%, #8eb0f0 100%); color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: 600; cursor: pointer; }
 
+        /* --- Interpretation 优化 --- */
+        .interpretation-result {
+            margin-top: 1rem; 
+            padding: 1.5rem; 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 35px rgba(106, 94, 158, 0.1);
+            display: none; 
+            text-align: left; 
+            line-height: 1.8;
+            color: #4a4a6a;
+            font-size: 1rem;
+            max-height: 40vh; /* 减小最大高度，防止盖住输入框 */
+            overflow-y: auto;
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            animation: slideUpFade 0.6s ease-out;
+            margin-bottom: 5rem; /* 增加底部边距，给输入框留出空间 */
+        }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .interpretation-result strong, .interpretation-result b { color: #6a5e9e; font-weight: 700; }
+        .interpretation-result em, .interpretation-result i { color: #8a78c4; font-style: italic; }
+
+        /* --- Mobile Responsiveness (Enhanced) --- */
+        @media (max-width: 768px) {
+            /* Global Adjustments */
+            body { overflow: hidden; } /* Keep body hidden, handle scroll in views */
+            
+            /* Header & Nav */
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                background: rgba(255, 255, 255, 0.4); /* More visible on mobile */
+            }
+            .logo { font-size: 1.4rem; }
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 5px; /* Space for scrollbar */
+            }
+            nav::-webkit-scrollbar { display: none; } /* Hide scrollbar for cleaner look */
+            nav ul {
+                padding: 0 0.5rem;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+            nav ul li a {
+                white-space: nowrap;
+                font-size: 0.85rem;
+                padding: 6px 14px;
+                background: rgba(255, 255, 255, 0.3); /* Subtle bg for touch targets */
+            }
+
+            /* View Sections General */
+            .view-section {
+                padding: 1rem !important; /* Override specific view paddings */
+                width: 100vw;
+            }
+
+            /* 1. Home View */
+            #view-home h1 { font-size: 3rem; }
+            .home-footer { bottom: 2rem; padding: 8px 20px; }
+
+            /* 2. Visualization View */
+            #view-visualization {
+                flex-direction: column !important;
+                gap: 1.5rem;
+                overflow-y: auto; /* Enable vertical scroll */
+                justify-content: flex-start;
+                padding-bottom: 80px !important; /* Space for bottom content */
+            }
+            .studio-left {
+                max-width: 100%;
+                width: 100%;
+                gap: 1rem;
+            }
+            .studio-left h2 { font-size: 1.8rem; text-align: center; }
+            .dream-textarea {
+                min-height: 120px;
+                font-size: 1rem;
+            }
+            .entrust-btn {
+                width: 100%; /* Full width button for easier touch */
+                text-align: center;
+                padding: 12px 0;
+            }
+            .canvas-area {
+                width: 100%;
+                flex: none; /* Disable flex growth to avoid stretching */
+            }
+            .dream-frame {
+                max-width: 100%;
+                aspect-ratio: 3/4;
+            }
+
+            /* 3. Interpretation View */
+            #view-interpretation {
+                justify-content: flex-start; /* Top align */
+                padding-top: 4rem !important; /* Push down content */
+            }
+            .ai-greeting { padding: 1rem; }
+            .ai-greeting h2 { font-size: 1.8rem; }
+            .interpretation-result {
+                max-height: 50vh;
+                margin-bottom: 8rem; /* More space for input */
+                padding: 1rem;
+            }
+            .input-wrapper {
+                position: fixed; /* Fix to bottom */
+                bottom: 0;
+                left: 0;
+                padding: 1rem;
+                background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%);
+                z-index: 500;
+            }
+            .input-box {
+                background: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            }
+
+            /* 4. Oracle View */
+            #view-oracle { padding: 1rem; }
+            .chat-container { padding-bottom: 20px; }
+            .chat-bubble { max-width: 100%; }
+            .user-interaction-area { padding: 1rem; }
+            .number-grid { grid-template-columns: repeat(10, 1fr); gap: 3px; }
+            .num-node { font-size: 0.6rem; }
+            .oracle-btn { width: 100%; text-align: center; }
+
+            /* 5. Plaza View */
+            #view-plaza { padding: 1rem; }
+            .plaza-scroll { padding-bottom: 100px; }
+            .plaza-input-wrapper {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                padding: 1rem;
+                background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+            }
+            .plaza-input-box { background: rgba(255,255,255,0.85); }
+            
+            /* 6. Calendar View */
+            #view-calendar { padding: 1rem !important; }
+            .months-grid { grid-template-columns: 1fr; }
+        }
+
+
+        /* Loading 动画 */
+        .dream-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 2rem 0;
+            width: 100%;
+        }
+        .dream-dot {
+            width: 12px; height: 12px;
+            background: linear-gradient(135deg, #a797e8, #8eb0f0);
+            border-radius: 50%;
+            animation: dream-bounce 1.4s infinite ease-in-out both;
+        }
+        .dream-dot:nth-child(1) { animation-delay: -0.32s; }
+        .dream-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes dream-bounce { 0%, 80%, 100% { transform: scale(0); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+
+        /* --- Visualization Loading & Card --- */
+        .loading-geo {
+            width: 60px; height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #a797e8; /* Purple Accent */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+            box-shadow: 0 0 15px rgba(167, 151, 232, 0.4); /* Purple Glow */
+        }
+        .loading-geo::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px; height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid #8eb0f0; /* Blue Accent */
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite reverse;
+            box-shadow: 0 0 10px rgba(142, 176, 240, 0.4); /* Blue Glow */
+        }
+        .loading-text {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            animation: pulseText 2s ease-in-out infinite;
+        }
+        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .dream-card {
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            animation: imageReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .dream-card-image-wrapper {
+            flex: 1; width: 100%; overflow: hidden; position: relative;
+        }
+        .dream-card-image {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .dream-card:hover .dream-card-image { transform: scale(1.05); }
+        
+        .dream-card-footer {
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; justify-content: space-between;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem; color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @keyframes imageReveal { 
+            from { opacity: 0; transform: scale(0.95); } 
+            to { opacity: 1; transform: scale(1); } 
+        }
+
+        /* --- Share Actions --- */
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .action-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            color: var(--accent-purple);
+            box-shadow: 0 5px 15px rgba(138, 120, 196, 0.2);
+        }
+
         ::-webkit-scrollbar { width: 0; }
     </style>
 </head>
@@ -279,7 +536,7 @@
 
     <header>
         <div class="logo" onclick="switchView('home')">
-            <div class="logo-glow"></div>
+            <img src="https://raw.githubusercontent.com/KassSan/Oneiro/main/Oneiro.png" alt="Oneiro Logo" style="height: 40px; width: auto; border-radius: 5px;">
             Oneiro
         </div>
         <nav>
@@ -344,11 +601,12 @@
         <div class="ai-greeting">
             <h2>I hope you rested well.</h2>
             <p>Tell me, what fragments of the night linger in your mind?</p>
+            <div id="interpret-response" class="interpretation-result"></div>
         </div>
         <div class="input-wrapper">
             <div class="input-box">
-                <textarea placeholder="Tell me about your dream..." rows="1"></textarea>
-                <button class="send-btn">
+                <textarea id="interpret-input" placeholder="Tell me about your dream..." rows="1"></textarea>
+                <button id="interpret-btn" class="send-btn">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </button>
             </div>
@@ -358,13 +616,13 @@
     <main id="view-visualization" class="view-section">
         <div class="studio-left">
             <h2>Share your thoughts with Oneiro.</h2>
-            <textarea class="dream-textarea" placeholder="Describe the vivid fragments, the light, and the essence of your dream..."></textarea>
-            <button class="entrust-btn">ENTRUST</button>
+            <textarea id="visual-input" class="dream-textarea" placeholder="Describe the vivid fragments, the light, and the essence of your dream..."></textarea>
+            <button id="visual-btn" class="entrust-btn">ENTRUST</button>
         </div>
         <div class="canvas-area">
-            <div class="dream-frame">
+            <div id="visual-frame" class="dream-frame">
                 <div class="frame-glow"></div>
-                <div style="z-index:1; font-family:'Playfair Display'; color:rgba(122,107,170,0.3); font-size:0.8rem; letter-spacing:3px;">AWAITING YOUR VISION</div>
+                <div id="visual-placeholder" style="z-index:1; font-family:'Playfair Display'; color:rgba(122,107,170,0.3); font-size:0.8rem; letter-spacing:3px;">AWAITING YOUR VISION</div>
             </div>
         </div>
     </main>
@@ -452,6 +710,295 @@
                 grid.innerHTML += `<div class="day ${hasDream}">${i}</div>`;
             }
             card.appendChild(grid); container.appendChild(card);
+        });
+
+        // --- Dify Integration ---
+        const DIFY_API_URL = "https://api.dify.ai/v1";
+        const DIFY_INTERPRET_KEY = "app-0W3Z2OUFFm8vhlc0zaI7zGDG";
+        const DIFY_VISUALIZE_KEY = "app-yMDhnVs3tYBpEtplY28ZDMX8";
+
+        async function callDify(apiKey, inputs, outputVar) {
+            try {
+                // 尝试使用 Workflow API，因为它支持自定义输出变量
+                const response = await fetch(`${DIFY_API_URL}/workflows/run`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        inputs: inputs,
+                        response_mode: "blocking",
+                        user: "oneiro-web-user"
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errText = await response.text();
+                    console.error("Dify Error:", errText);
+                    // 如果 Workflow API 失败，尝试回退到 Completion API (仅作兼容，通常不需要)
+                    if (response.status === 404) {
+                         console.warn("Workflow API not found, trying Completion API...");
+                         return await callDifyCompletion(apiKey, inputs);
+                    }
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log("Dify API Response:", data); 
+
+                // 提取 Workflow 输出变量
+                if (data.data && data.data.outputs && data.data.outputs[outputVar]) {
+                    return data.data.outputs[outputVar];
+                }
+                
+                // 如果找不到指定变量，尝试返回 answer (兼容旧应用)
+                if (data.data && data.data.outputs && data.data.outputs['answer']) {
+                    return data.data.outputs['answer'];
+                }
+
+                return "Error: Could not find output variable '" + outputVar + "' in response.";
+            } catch (error) {
+                console.error("Dify API Connection Error:", error);
+                return "The connection to the dream realm was interrupted.";
+            }
+        }
+
+        // 备用：旧的 Completion 接口调用 (仅当 Workflow 失败时使用)
+        async function callDifyCompletion(apiKey, inputs) {
+             const response = await fetch(`${DIFY_API_URL}/completion-messages`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ inputs: inputs, response_mode: "blocking", user: "oneiro-web-user" })
+            });
+            const data = await response.json();
+            return data.answer;
+        }
+
+        // Interpretation Logic
+        document.getElementById('interpret-btn').addEventListener('click', async () => {
+            const input = document.getElementById('interpret-input');
+            const resultBox = document.getElementById('interpret-response');
+            const btn = document.getElementById('interpret-btn');
+            const query = input.value.trim();
+            
+            if (!query) return;
+            
+            // UI Loading State
+            const originalBtnContent = btn.innerHTML;
+            btn.innerHTML = '<div style="width:20px; height:20px; border:2px solid #fff; border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite"></div>';
+            btn.style.pointerEvents = 'none';
+            resultBox.style.display = 'block';
+            
+            // Elegant loading animation with text
+            resultBox.innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:15px; padding: 2rem 0;">
+                    <div class="dream-loader" style="padding:0;">
+                        <div class="dream-dot"></div>
+                        <div class="dream-dot"></div>
+                        <div class="dream-dot"></div>
+                    </div>
+                    <div style="color:#8a78c4; font-size:0.9rem; font-style:italic; animation: pulseText 2s infinite;">Deciphering the whispers of the night...</div>
+                </div>
+            `;
+            
+            try {
+                // 修改：指定输出变量名为 'end'
+                const answer = await callDify(DIFY_INTERPRET_KEY, { dream_query: query }, 'end');
+                
+                // Simple Markdown formatting (bold/italic/newlines)
+                const formatted = answer
+                    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+                    .replace(/\*(.*?)\*/g, '<i>$1</i>')
+                    .replace(/\n/g, '<br>');
+                
+                // 启动打字机效果，完成后显示分享按钮
+                await typeWriter(resultBox, formatted);
+                
+                // 添加分享按钮
+                const shareHTML = getShareButtonsHTML(answer);
+                const shareContainer = document.createElement('div');
+                shareContainer.innerHTML = shareHTML;
+                resultBox.appendChild(shareContainer);
+                
+            } catch (e) {
+                resultBox.innerText = "The mists are too thick. Try again later.";
+            } finally {
+                btn.innerHTML = originalBtnContent;
+                btn.style.pointerEvents = 'auto';
+            }
+        });
+
+        // 打字机效果函数 (Updated to return Promise)
+        function typeWriter(element, html, speed = 20) {
+            return new Promise((resolve) => {
+                let i = 0;
+                element.innerHTML = '';
+                
+                function type() {
+                    if (i < html.length) {
+                        let char = html.charAt(i);
+                        if (char === '<') {
+                            let tagEnd = html.indexOf('>', i);
+                            if (tagEnd !== -1) {
+                                element.innerHTML += html.substring(i, tagEnd + 1);
+                                i = tagEnd + 1;
+                            } else {
+                                element.innerHTML += char;
+                                i++;
+                            }
+                        } else {
+                            element.innerHTML += char;
+                            i++;
+                        }
+                        element.scrollTop = element.scrollHeight; // Auto-scroll
+                        requestAnimationFrame(() => setTimeout(type, speed)); // Smoother animation
+                    } else {
+                        resolve(); // Animation finished
+                    }
+                }
+                type();
+            });
+        }
+        
+        // Share Helper Functions
+        function getShareButtonsHTML(text) {
+            const url = encodeURIComponent(window.location.href);
+            const textEncoded = encodeURIComponent("Just decoded my dream on Oneiro:\n" + text.substring(0, 150) + "...");
+
+            return `
+                <div class="share-actions" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end; opacity: 0; animation: fadeInView 1s ease 0.5s forwards;">
+                    <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${textEncoded}', '_blank')" class="action-btn" title="Share on Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </button>
+                    <button onclick="window.open('https://twitter.com/intent/tweet?text=${textEncoded}&url=${url}', '_blank')" class="action-btn" title="Share on X">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path></svg>
+                    </button>
+                    <button onclick="copyToClipboard('${window.location.href}', '${textEncoded}')" class="action-btn" title="Copy Link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                    </button>
+                </div>
+            `;
+        }
+
+        function copyToClipboard(url, textEncoded) {
+            const text = decodeURIComponent(textEncoded);
+            const fullText = `${text}\n\n${url}`;
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert("Link and dream content copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Visualization Logic
+        document.getElementById('visual-btn').addEventListener('click', async () => {
+            const input = document.getElementById('visual-input');
+            const frame = document.getElementById('visual-frame');
+            const placeholder = document.getElementById('visual-placeholder');
+            const btn = document.getElementById('visual-btn');
+            const query = input.value.trim();
+            
+            if (!query) return;
+
+            // Clean up old share buttons if any
+            const existingShare = frame.parentNode.querySelector('.visual-share-container');
+            if (existingShare) existingShare.remove();
+
+            const originalText = btn.innerText;
+            btn.innerText = "WEAVING...";
+            btn.style.pointerEvents = 'none';
+            
+            // 重置 frame 样式以适应全屏卡片
+            frame.style.padding = '0';
+            frame.style.alignItems = 'center';
+            frame.style.justifyContent = 'center';
+
+            // 1. New loading animation (Directive B)
+            frame.innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+                    <div class="loading-geo"></div>
+                    <div class="loading-text">Capturing dream imagery...</div>
+                </div>
+            `;
+            
+            try {
+                // 修改：指定输出变量名为 'image'
+                let answer = await callDify(DIFY_VISUALIZE_KEY, { visual_prompt: query }, 'image');
+                console.log("Visual Response:", answer);
+                
+                let imgUrl = null;
+
+                // 处理对象类型的返回 (e.g. Dify Image block output)
+                if (typeof answer === 'object' && answer !== null) {
+                    if (answer.url) imgUrl = answer.url;
+                    else if (Array.isArray(answer) && answer[0] && answer[0].url) imgUrl = answer[0].url;
+                    else answer = JSON.stringify(answer, null, 2);
+                }
+                
+                // 检查是否是字符串类型的 URL 或 Markdown
+                if (!imgUrl && typeof answer === 'string') {
+                    const mdMatch = answer.match(/!\[.*?\]\((.*?)\)/);
+                    if (mdMatch) {
+                        imgUrl = mdMatch[1];
+                    } else if (answer.match(/^https?:\/\//)) {
+                        imgUrl = answer;
+                    }
+                }
+
+                if (imgUrl) {
+                    // 生成元数据 (Directive C)
+                    const dreamId = 'DRM-' + Math.random().toString(16).substr(2, 6).toUpperCase();
+                    const now = new Date();
+                    const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+                    const vibeIndex = Math.floor(Math.random() * 20) + 80; // 80-99%
+
+                    // 渲染卡片 (Directive C)
+                    frame.innerHTML = `
+                        <div class="dream-card">
+                            <div class="dream-card-image-wrapper">
+                                <img src="${imgUrl}" class="dream-card-image" alt="Dream Visualization">
+                            </div>
+                            <div class="dream-card-footer">
+                                <span>ID: ${dreamId}</span>
+                                <span>TIME: ${timeStr}</span>
+                                <span>VIBE: ${vibeIndex}%</span>
+                            </div>
+                        </div>
+                    `;
+
+                    // 添加分享按钮 (Outside frame)
+                    const shareHTML = getShareButtonsHTML("Check out this dream visualization I created on Oneiro!");
+                    const shareContainer = document.createElement('div');
+                    shareContainer.className = 'visual-share-container';
+                    shareContainer.innerHTML = shareHTML;
+                    shareContainer.style.marginTop = '1.5rem';
+                    // 调整分享按钮样式以适应 visualization 布局
+                    shareContainer.querySelector('.share-actions').style.justifyContent = 'center'; 
+                    shareContainer.querySelector('.share-actions').style.opacity = '0';
+                    shareContainer.querySelector('.share-actions').style.animation = 'fadeInView 1s ease 0.5s forwards';
+                    
+                    frame.parentNode.appendChild(shareContainer);
+                } else {
+                    placeholder.style.display = 'none';
+                    frame.style.padding = '20px';
+                    frame.style.overflow = 'auto';
+                    frame.style.alignItems = 'flex-start';
+                    frame.style.justifyContent = 'flex-start';
+                    // 显示调试信息
+                    frame.innerHTML = `
+                        <div style="color:white; text-align:left; width:100%;">
+                            <div style="margin-bottom:10px; color:#ff9;">Vision unclear. Received data:</div>
+                            <pre style="white-space:pre-wrap; word-break:break-all; font-family:monospace; font-size:0.8rem; background:rgba(0,0,0,0.3); padding:10px; border-radius:8px;">${typeof answer === 'string' ? answer : JSON.stringify(answer)}</pre>
+                        </div>`;
+                }
+            } catch (e) {
+                console.error(e);
+                frame.innerHTML = `<div style="color:#ff9; padding:20px;">Connection failed: ${e.message}</div>`;
+            } finally {
+                btn.innerText = originalText;
+                btn.style.pointerEvents = 'auto';
+            }
         });
     </script>
 </body>
