@@ -559,10 +559,10 @@
         </h1>
         
         <div class="home-footer">
-            <a class="social-icon" title="Facebook">
+            <a href="https://www.facebook.com/TheOneiroWorld" target="_blank" class="social-icon" title="Facebook">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
             </a>
-            <a class="social-icon" title="X (Twitter)">
+            <a href="https://x.com/TheOneiroWorld" target="_blank" class="social-icon" title="X (Twitter)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path></svg>
             </a>
         </div>
@@ -577,7 +577,7 @@
                 <div class="chat-bubble">
                     <h3>AI Oracle</h3>
                     <p>What do you wish to know? The Oracle will tell you.</p>
-                    <p style="color:#8a78c4; font-weight:500;">Enter your question and 6 numbers (between 0-100).</p>
+                    <p style="color:#8a78c4; font-weight:500;">Enter your question and 6 numbers (between 1-100).</p>
                 </div>
             </div>
 
@@ -659,7 +659,8 @@
         const oracleQuestion = document.getElementById('oracle-question');
         let oracleSelected = [];
 
-        for (let i = 0; i < 100; i++) { // 0-99
+        // Updated loop to 1-100
+        for (let i = 1; i <= 100; i++) { 
             const node = document.createElement('div');
             node.className = 'num-node';
             node.innerText = i;
